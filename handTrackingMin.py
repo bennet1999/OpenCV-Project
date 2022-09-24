@@ -1,11 +1,18 @@
-import cv2
+import cv2 as cv
 import mediapipe as mp
 import time
 
-cap = cv2.VideoCapture(0)
+cap = cv.VideoCapture(0)
+
+mpHands = mp.solutions.hands
+hands = mpHands.Hands()
 
 while True:
     success, img = cap.read()
 
-    cv2.imshow("Image", img)
-    cv2.waitKey(1)
+    imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+    results = hands.process(imgRGB)
+
+
+    cv.imshow("Image", img)
+    cv.waitKey(1)
